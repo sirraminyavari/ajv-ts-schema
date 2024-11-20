@@ -1,0 +1,7 @@
+# Ignore everything in this directory
+*
+
+# But do not ignore the husky.sh script and hook files
+!.gitignore
+!husky.sh
+!pre-commit

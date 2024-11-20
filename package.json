@@ -1,0 +1,87 @@
+{
+  "name": "@raminyavari/ajv-ts-schema",
+  "description": "TypeScript friendly Ajv Schema",
+  "version": "0.27.4",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/sirraminyavari/ajv-ts-schema",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "lint": "eslint",
+    "fix": "eslint --fix",
+    "prepare": "husky",
+    "release:ci": "release-it --ci"
+  },
+  "author": {
+    "name": "Ramin Yavari",
+    "url": "https://raminy.dev"
+  },
+  "keywords": [
+    "ajv"
+  ],
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: Release ${version}",
+      "tagName": "${version}",
+      "requireCleanWorkingDir": true,
+      "commit": true,
+      "push": true,
+      "tag": true
+    },
+    "npm": {
+      "publish": false
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_TOKEN"
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "infile": "CHANGELOG.md",
+        "preset": "angular"
+      }
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@release-it/conventional-changelog": "^9.0.2",
+    "@types/node": "^20.14.8",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.12.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "release-it": "^17.10.0",
+    "typescript": "^5.5.2",
+    "typescript-eslint": "^8.12.2",
+    "vite": "^4.5.3",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.2"
+  }
+}

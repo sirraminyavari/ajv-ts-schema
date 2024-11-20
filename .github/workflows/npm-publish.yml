@@ -1,0 +1,53 @@
+name: Publish Package to NPM
+
+on:
+  push:
+    branches:
+      - __main
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  code-structure-test:
+    runs-on: ${{ matrix.os }}
+    if: ${{ !contains(github.event.head_commit.message, 'docs-only') }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [18]
+
+    steps:
+      - name: Setup node env 🔨
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+
+      - name: install package dependencies 🛠️
+        run: |
+          yarn install
+
+      - name: build 🛠️
+        run: |
+          yarn build
+
+      - name: Set git identity ⚙️
+        run: |
+          git config user.name "changelog"
+          git config user.email "<>"
+
+      - name: Run release-it
+        run: yarn release:ci
+
+      - name: Publish as NPM package 📦
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
