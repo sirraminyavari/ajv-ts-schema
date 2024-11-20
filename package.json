@@ -5,6 +5,9 @@
   "license": "Apache-2.0",
   "private": false,
   "repository": "https://github.com/sirraminyavari/ajv-ts-schema",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],
