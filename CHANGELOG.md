@@ -1,5 +1,12 @@
 
 
+# [0.29.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.28.2...0.29.0) (2025-01-24)
+
+
+### Features
+
+* Add decorators for ajv schema definition ([fb42c4c](https://github.com/sirraminyavari/ajv-ts-schema/commit/fb42c4c98589f3d95b5d32f50579b54a825d3da6))
+
 ## [0.28.2](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.28.1...0.28.2) (2024-11-20)
 
 ## [0.28.1](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.28.0...0.28.1) (2024-11-20)
