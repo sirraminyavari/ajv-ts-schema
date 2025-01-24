@@ -1,5 +1,12 @@
 
 
+# [0.30.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.29.0...0.30.0) (2025-01-24)
+
+
+### Features
+
+* Add tests with vitest ([abe6285](https://github.com/sirraminyavari/ajv-ts-schema/commit/abe628579be5c60d55f5fbb0836027a7459dedbf))
+
 # [0.29.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.28.2...0.29.0) (2025-01-24)
 
 
