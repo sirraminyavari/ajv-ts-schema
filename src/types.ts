@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 type FreeValue = string | number | boolean | null | FreeValue[] | { [key: string]: FreeValue };
 
 type MetaData = {
@@ -214,7 +212,7 @@ type PartialKeyedArray<T extends object> = {
   [K in keyof T]?: Array<Exclude<keyof T, K>>;
 };
 
-type ObjectOptions<T extends object | undefined = undefined> = {
+export type ObjectOptions<T extends object | undefined = undefined> = {
   /**
    * Minimum number of properties.
    */
@@ -259,7 +257,7 @@ type ObjectOptions<T extends object | undefined = undefined> = {
   dependentRequired?: T extends object ? PartialKeyedArray<T> : never;
 };
 
-type PropertyOptions =
+export type PropertyOptions =
   | GenericType<"string", StringOptions>
   | GenericType<"formatted-string", FormattedStringOptions>
   | GenericType<"integer", IntegerOptions>
@@ -267,95 +265,7 @@ type PropertyOptions =
   | GenericType<"boolean", {}>
   | GenericType<"array", ArrayOptions>;
 
-type JsonSchema = PropertyOptions | typeof AjvSchema;
-
-export function AjvProperty(
-  options: (PropertyOptions & { required?: boolean; nullable?: boolean }) | typeof AjvSchema
-) {
-  return function (target: any, propertyKey: string) {
-    const existingProperties = Reflect.getMetadata("properties", target) || {};
-    existingProperties[propertyKey] = options;
-    Reflect.defineMetadata("properties", existingProperties, target);
-  };
-}
-
-function isSubclassOfAjvSchema(cls: Function | JsonSchema): boolean {
-  while (cls) {
-    if (cls === AjvSchema) {
-      return true;
-    }
-
-    cls = Object.getPrototypeOf(cls);
-  }
-
-  return false;
-}
-
-const parseOptions = (options: any): object | undefined => {
-  if (typeof options === "undefined") return undefined;
-  else if (Array.isArray(options)) {
-    return options.map((option) => parseOptions(option));
-  } else if (isSubclassOfAjvSchema(options)) {
-    return parseSchema(options);
-  } else if (typeof options === "object") {
-    return Object.keys(options).reduce<Record<string, any>>((acc, key) => {
-      /**
-       * Properties of free value types don't need conversion.
-       * Because they are values not schemas.
-       */
-      if (["enum", "const", "default", "meta"].some((k) => k === key)) {
-        acc[key] = options[key];
-      } else if (key === "type" && options[key] === "formatted-string") {
-        // 'formatted-string' is an alias for 'string' that is not supported by ajv. So we convert it to 'string'.
-        acc["type"] = "string";
-      } else if (key === "required") {
-        // 'required' is handled separately.
-        return acc;
-      } else {
-        acc[key] = parseOptions(options[key]);
-      }
-
-      return acc;
-    }, {});
-  } else {
-    return options;
-  }
-};
-
-const parseSchema = (schema: any): object | undefined => {
-  if (!schema) return undefined;
-  else if (isSubclassOfAjvSchema(schema)) {
-    return (schema as typeof AjvSchema).getSchema();
-  } else {
-    return parseOptions(schema);
-  }
-};
-
-export function AjvObject<T extends object | undefined = undefined>(options?: ObjectOptions<T>) {
-  return function (constructor: typeof AjvSchema) {
-    const properties = Reflect.getMetadata("properties", constructor.prototype) || {};
-
-    const schema = {
-      type: "object",
-      ...(parseOptions(options) || {}),
-      properties: Object.keys(properties).reduce(
-        (acc, key) => {
-          const schema = parseSchema(properties[key]);
-          if (schema) acc[key] = schema;
-          return acc;
-        },
-        {} as Record<string, unknown>
-      ),
-      required: Object.keys(properties).filter((key) => properties[key].required),
-    };
-
-    Reflect.defineMetadata("schema", schema, constructor);
-  };
-}
-
-export const getSchema = (schema: JsonSchema): any => {
-  return parseSchema(schema);
-};
+export type JsonSchema = PropertyOptions | typeof AjvSchema;
 
 export class AjvSchema {
   static getSchema() {
