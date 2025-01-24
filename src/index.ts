@@ -1,4 +1,5 @@
-import { AjvObject, AjvSchema, AjvProperty, getSchema } from "./types";
+export { AjvObject, AjvSchema, AjvProperty, getSchema } from "./types";
+
 /*
 import Ajv from "ajv";
 
@@ -77,5 +78,3 @@ if (!valid) console.log(validate.errors);
 
 export const test = "test";
 */
-
-export default { AjvSchema, AjvObject, AjvProperty, getSchema };
