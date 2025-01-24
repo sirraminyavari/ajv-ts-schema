@@ -242,7 +242,7 @@ export type ObjectOptions<T extends object | undefined = undefined> = {
   patternProperties?: Record<string, JsonSchema>;
 
   /**
-   * If `false`, the object must not have `additional properties`.
+   * If `false`, the object must not have `additionalProperties`.
    * If has a value, all additional properties not mathcing `properties` and `patternProperties` must match the schema.
    */
   additionalProperties?: false | JsonSchema;
