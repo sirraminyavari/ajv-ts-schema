@@ -27,7 +27,8 @@
     "lint": "eslint",
     "fix": "eslint --fix",
     "prepare": "husky",
-    "release:ci": "release-it --ci"
+    "release:ci": "release-it --ci",
+    "play": "yarn build && node dist/index.mjs"
   },
   "author": {
     "name": "Ramin Yavari",
@@ -73,6 +74,7 @@
   "devDependencies": {
     "@release-it/conventional-changelog": "^9.0.2",
     "@types/node": "^20.14.8",
+    "ajv": "^8.17.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.12.0",
