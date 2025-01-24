@@ -16,9 +16,10 @@
     "noEmit": true,
     "plugins": [],
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "types": ["vitest/globals"],
   },
-  "include": ["src", "**/*.ts"],
+  "include": ["src", "**/*.ts", "vite.config.mts"],
   "exclude": ["mdl.d.ts", "modules.d.ts", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
