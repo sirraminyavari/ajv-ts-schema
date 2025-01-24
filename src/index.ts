@@ -1,31 +1,43 @@
+import { AjvObject, AjvSchema, AjvProperty, getSchema } from "./types";
+/*
 import Ajv from "ajv";
-import { AjvObject, AjvSchemaBase, AjvProperty } from "./types";
 
 const ajv = new Ajv({}); // options can be passed, e.g. {allErrors: true}
 
 @AjvObject()
-class ObjectProperty extends AjvSchemaBase {
+class ListItem extends AjvSchema {
+  @AjvProperty({ type: "string" })
+  label!: string;
+}
+
+@AjvObject()
+class ObjectProperty extends AjvSchema {
   @AjvProperty({
-    type: "string",
-    minLength: 5,
-    maxLength: 30,
-    pattern: "[\\da-z\\-]+",
+    type: "formatted-string",
     required: true,
     format: "email",
     enum: ["ramin", "gesi"],
   })
-  name!: any;
+  title!: unknown;
+
+  @AjvProperty({
+    type: "array",
+    prefixItems: [ListItem, { type: "number", anyOf: [{ minimum: 0 }, { maximum: 10 }] }],
+    items: { type: "formatted-string", format: "ipv4" },
+    enum: [{ type: "formatted-string", required: true }],
+    required: true,
+  })
+  list!: unknown;
 }
 
-@AjvObject<{ a: "ramin"; b: "gesi" }>({ dependentRequired: { a: ["b"] } })
-class Schema extends AjvSchemaBase {
+@AjvObject<MySchema>({ dependentRequired: { b: ["name"] } })
+class MySchema extends AjvSchema {
   @AjvProperty({
     type: "string",
     minLength: 5,
     maxLength: 30,
     pattern: "[\\da-z\\-]+",
     required: true,
-    format: "email",
     enum: ["ramin", "gesi"],
   })
   name!: any;
@@ -37,12 +49,13 @@ class Schema extends AjvSchemaBase {
   b!: string;
 }
 
-const schema1 = Schema.getSchema();
+const singleProperty = getSchema({ type: "string", minLength: 5, maxLength: 30 });
 
 console.log({
-  a: 22,
-  schema1: JSON.stringify(schema1, null, 2),
+  singleProperty: JSON.stringify(singleProperty, null, 2),
 });
+
+console.log(JSON.stringify(MySchema.getSchema()));
 
 const schema = {
   type: "object",
@@ -63,5 +76,6 @@ const valid = validate(data);
 if (!valid) console.log(validate.errors);
 
 export const test = "test";
+*/
 
-export default { AjvSchemaBase, AjvObject, AjvProperty };
+export default { AjvSchema, AjvObject, AjvProperty, getSchema };
