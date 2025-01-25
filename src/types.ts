@@ -40,6 +40,8 @@ type CommonOptions = {
 
   /**
    * Default value for the property.
+   * It requires `useDefaults` option to be set to `true` in the `Ajv` instance.
+   * e.g. `const ajv = new Ajv({ useDefaults: true });`
    */
   default?: FreeValue;
 };
@@ -62,7 +64,27 @@ type StringOptions = {
 };
 
 type FormattedStringOptions = {
-  /* https://github.com/ajv-validator/ajv-formats?tab=readme-ov-file */
+  /**
+   * Minimum length of the string.
+   */
+  minLength?: number;
+
+  /**
+   * Maximum length of the string.
+   */
+  maxLength?: number;
+
+  /**
+   * This requires `ajv-formats` to be installed.
+   * ```
+   * import Ajv from "ajv/dist/2020";
+   * import addFormats from "ajv-formats";
+   *
+   * const ajv = new Ajv({ ...options });
+   * addFormats(ajv);
+   * ```
+   * https://github.com/ajv-validator/ajv-formats?tab=readme-ov-file
+   */
   format:
     | "email"
     | "date"
@@ -90,12 +112,6 @@ type FormattedStringOptions = {
     | "binary";
 };
 
-type IntegerOptions = {
-  minimum?: number;
-  maximum?: number;
-  multipleOf?: number;
-};
-
 type NumberOptions = {
   minimum?: number;
   maximum?: number;
@@ -106,12 +122,12 @@ type NumberOptions = {
 
 type ArrayOptions = {
   /**
-   * The array is valid if its size is greater than, or equal to, the value of this keyword.
+   * The array is valid if its size is greater than or equal to the value of this keyword.
    */
   minItems?: number;
 
   /**
-   * The array is valid if its size is less than, or equal to, the value of this keyword.
+   * The array is valid if its size is less than or equal to the value of this keyword.
    */
   maxItems?: number;
 
@@ -122,10 +138,12 @@ type ArrayOptions = {
 
   /**
    * The array is valid if all the items with the same index as prefixItems are valid according to the schema.
+   * prefixItems doesn't enforce the length of the array.
+   * If the array is shorter than prefixItems, only the provided items are checked.
    * e.g.
    * Schema: `{ prefixItems: [{ type: "string" }, { type: "number" }] }`
-   * Valid: `["a", 1, "b", 2]`, `["a", 1]`
-   * Invalid: `["a", "b", 2]`, `[1, "a"]`, `["a"]`
+   * Valid: `["a", 1, "b", 2]`, `["a", 1]`, `["a"]`
+   * Invalid: `["a", "b", 2]`, `[1, "a"]`
    */
   prefixItems?: JsonSchema[];
 
@@ -178,7 +196,7 @@ type GenericType<T extends string, Options extends object, AllOptions = Options 
   /**
    * The data is valid if it is valid according to exactly one schema in this array.
    * e.g.
-   * Schema: `{ type: "number", oneOf: [{maximum: 3}, {type: "integer"}] }`
+   * Schema: `{ type: "number", oneOf: [{maximum: 3}, {multipleOf: 1}] }`
    * Valid: `1.5`, `2.5`, `4`, `5`
    * Invalid: `2`, `3`, `4.5`, `5.5`
    */
@@ -187,7 +205,7 @@ type GenericType<T extends string, Options extends object, AllOptions = Options 
   /**
    * The data is valid if it is valid according to at least one schema in this array.
    * e.g.
-   * Schema: `{ type: "number", oneOf: [{maximum: 3}, {type: "integer"}] }`
+   * Schema: `{ type: "number", oneOf: [{maximum: 3}, {multipleOf: 1}] }`
    * Valid: `1.5`, `2`, `2.5`, `3`, `4`, `5`
    * Invalid: `4.5`, `5.5`
    */
@@ -196,7 +214,7 @@ type GenericType<T extends string, Options extends object, AllOptions = Options 
   /**
    * The data is valid if it is valid according to all schemas in this array.
    * e.g.
-   * Schema: `{ type: "number", oneOf: [{maximum: 3}, {type: "integer"}] }`
+   * Schema: `{ type: "number", oneOf: [{maximum: 3}, {multipleOf: 1}] }`
    * Valid: `2`, `3`
    * Invalid: `1.5`, `2.5`, `4`, `4.5`, `5`, `5.5`
    */
@@ -212,16 +230,19 @@ type PartialKeyedArray<T extends object> = {
   [K in keyof T]?: Array<Exclude<keyof T, K>>;
 };
 
-export type ObjectOptions<T extends object | undefined = undefined> = {
-  /**
-   * Minimum number of properties.
-   */
-  maxProperties?: number;
-
+export type ObjectOptions<T extends object | undefined = undefined> = Omit<
+  GenericType<"object", {}>,
+  "type"
+> & {
   /**
    * Maximum number of properties.
    */
   minProperties?: number;
+
+  /**
+   * Minimum number of properties.
+   */
+  maxProperties?: number;
 
   /**
    * A map where keys are `regex` patterns and values are `JSON Schemas`.
@@ -242,7 +263,7 @@ export type ObjectOptions<T extends object | undefined = undefined> = {
   patternProperties?: Record<string, JsonSchema>;
 
   /**
-   * If `false`, the object must not have `additional properties`.
+   * If `false`, the object must not have `additionalProperties`.
    * If has a value, all additional properties not mathcing `properties` and `patternProperties` must match the schema.
    */
   additionalProperties?: false | JsonSchema;
@@ -251,8 +272,8 @@ export type ObjectOptions<T extends object | undefined = undefined> = {
    * Defines the dependencies between properties.
    * e.g.
    * Schema: `{ dependentRequired: { foo: ["bar", "baz"] } }`
-   * Valid: `{foo: 1, bar: 2, baz: 3}`, `{}`, `{a: 1}`
-   * Invalid: `{foo: 1}`, `{foo: 1, bar: 2}`, `{foo: 1, baz: 3}`
+   * Valid: `{}`, `{a: 1}`, `{foo: 1, bar: 2, baz: 3}`
+   * Invalid: `{foo: 1}`, `{foo: 1, bar: 2}`, `{foo: 1, baz: 22}`
    */
   dependentRequired?: T extends object ? PartialKeyedArray<T> : never;
 };
@@ -260,8 +281,8 @@ export type ObjectOptions<T extends object | undefined = undefined> = {
 export type PropertyOptions =
   | GenericType<"string", StringOptions>
   | GenericType<"formatted-string", FormattedStringOptions>
-  | GenericType<"integer", IntegerOptions>
   | GenericType<"number", NumberOptions>
+  | GenericType<"integer", NumberOptions>
   | GenericType<"boolean", {}>
   | GenericType<"array", ArrayOptions>;
 
@@ -271,4 +292,28 @@ export class AjvSchema {
   static getSchema() {
     return Reflect.getMetadata("schema", this);
   }
+
+  /**
+   * Converts a JSON object to an instance of a schema class that extends AjvSchema.
+   * e.g.
+   * If we have `class MySchema extends AjvSchema { foo: number; }` and `json = { foo: 2 }`,
+   * `AjvSchema.fromJson(MySchema, json)` will return an instance of `MySchema` with `foo` set to `2`.
+   */
+  static fromJson = <T>(cls: new (...args: any[]) => T, json: any): T => {
+    const instance = new cls();
+
+    Object.keys(json).forEach((key) => {
+      let value: unknown = undefined;
+
+      if (json[key] && typeof json[key] === "object" && cls.prototype[key]?.constructor) {
+        value = this.fromJson(cls.prototype[key].constructor, json[key]);
+      } else {
+        value = json[key];
+      }
+
+      (instance as Record<string, unknown>)[key] = value;
+    });
+
+    return instance;
+  };
 }

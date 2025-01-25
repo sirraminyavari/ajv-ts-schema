@@ -25,15 +25,15 @@ jobs:
         with:
           fetch-depth: "0"
 
-      - name: install package dependencies 🛠️
+      - name: Install package dependencies 🛠️
         run: |
           yarn install
 
-      - name: test
+      - name: Test
         run: |
           yarn test
 
-      - name: build 🛠️
+      - name: Build 🛠️
         run: |
           yarn build
 
