@@ -5,6 +5,7 @@
   "license": "Apache-2.0",
   "private": false,
   "repository": "https://github.com/sirraminyavari/ajv-ts-schema",
+  "homepage": "https://www.npmjs.com/package/@raminyavari/ajv-ts-schema",
   "publishConfig": {
     "access": "public"
   },
@@ -38,7 +39,11 @@
     "url": "https://raminy.dev"
   },
   "keywords": [
-    "ajv"
+    "ajv",
+    "typescript schema",
+    "ts schema",
+    "json schema",
+    "schema validation"
   ],
   "release-it": {
     "git": {
@@ -80,6 +85,7 @@
     "@vitest/coverage-v8": "^3.0.4",
     "@vitest/ui": "^3.0.4",
     "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.12.0",
