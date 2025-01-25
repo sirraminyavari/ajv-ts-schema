@@ -1,5 +1,13 @@
 
 
+# [0.31.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.30.0...0.31.0) (2025-01-25)
+
+
+### Features
+
+* Add static method fromJson to AjvSchema ([b3b3aba](https://github.com/sirraminyavari/ajv-ts-schema/commit/b3b3aba0b349414f22b5b313f7b931cf8cf67fd4))
+* Add tests for all the details ([181f02d](https://github.com/sirraminyavari/ajv-ts-schema/commit/181f02ddcc4d3e590996be94e0b8341d2512a543))
+
 # [0.30.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.29.0...0.30.0) (2025-01-24)
 
 
