@@ -51,3 +51,10 @@ export const parseSchema = (schema: any): object | undefined => {
     return parseOptions(schema);
   }
 };
+
+export const isRequired = (schema: any): boolean => {
+  if (!schema) return false;
+  if (isSubclassOfAjvSchema(schema)) {
+    return !!Reflect.getMetadata("objectIsRequired", schema);
+  } else return !!schema.required;
+};

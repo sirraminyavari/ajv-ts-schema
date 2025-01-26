@@ -1,18 +1,20 @@
 import "reflect-metadata";
 import { AjvSchema, JsonSchema, ObjectOptions, PropertyOptions } from "./types";
-import { parseOptions, parseSchema } from "./util";
+import { isRequired, parseOptions, parseSchema } from "./util";
 
-export function AjvProperty(
-  options: (PropertyOptions & { required?: boolean; nullable?: boolean }) | typeof AjvSchema
-) {
-  return function (target: any, propertyKey: string) {
+type BaseOptions = { required?: boolean; nullable?: boolean };
+
+export function AjvProperty(options: (PropertyOptions & BaseOptions) | typeof AjvSchema) {
+  return function (target: AjvSchema, propertyKey: string) {
     const existingProperties = Reflect.getMetadata("properties", target) || {};
     existingProperties[propertyKey] = options;
     Reflect.defineMetadata("properties", existingProperties, target);
   };
 }
 
-export function AjvObject<T extends object | undefined = undefined>(options?: ObjectOptions<T>) {
+export function AjvObject<T extends object | undefined = undefined>(
+  options?: ObjectOptions<T> & BaseOptions
+) {
   return function (constructor: typeof AjvSchema) {
     const properties = Reflect.getMetadata("properties", constructor.prototype) || {};
 
@@ -27,10 +29,11 @@ export function AjvObject<T extends object | undefined = undefined>(options?: Ob
         },
         {} as Record<string, unknown>
       ),
-      required: Object.keys(properties).filter((key) => properties[key].required),
+      required: Object.keys(properties).filter((key) => isRequired(properties[key])),
     };
 
     Reflect.defineMetadata("schema", schema, constructor);
+    Reflect.defineMetadata("objectIsRequired", options?.required, constructor);
   };
 }
 
