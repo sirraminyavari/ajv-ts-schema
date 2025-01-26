@@ -1,5 +1,12 @@
 
 
+# [0.32.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.31.0...0.32.0) (2025-01-26)
+
+
+### Features
+
+* Update readme file and add documentation ([f0fbfe1](https://github.com/sirraminyavari/ajv-ts-schema/commit/f0fbfe15e5dc78a8d6647ef0c780952da64c132e))
+
 # [0.31.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.30.0...0.31.0) (2025-01-25)
 
 
