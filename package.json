@@ -1,7 +1,7 @@
 {
   "name": "@raminyavari/ajv-ts-schema",
   "description": "Simplify AJV Schema Definition with TypeScript",
-  "version": "0.32.1",
+  "version": "0.32.2",
   "license": "Apache-2.0",
   "private": false,
   "repository": "https://github.com/sirraminyavari/ajv-ts-schema",
