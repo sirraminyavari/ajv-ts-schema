@@ -1,3 +1,7 @@
+
+
+## [0.32.4](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.1...0.32.4) (2025-01-27)
+
 ## [0.32.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.31.0...0.32.0) (2025-01-26)
 
 ### Features
