@@ -1,5 +1,7 @@
 
 
+## [0.32.3](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.2...0.32.3) (2025-01-27)
+
 ## [0.32.2](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.1...0.32.2) (2025-01-27)
 
 ## [0.32.1](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.0...0.32.1) (2025-01-27)
