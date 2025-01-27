@@ -90,7 +90,7 @@ if (!validate(input)) {
 
 ## Documentation
 
-- Full documentation and examples: [Documentation](https://www.raminy.dev/article/18712bd0-e06d-80b2-8e76-f86720b48d01/Simplifying%20AJV%20Schema%20Definition%20with%20TypeScript)
+- Full documentation and examples: [Documentation](https://www.raminy.dev/article/18712bd0-e06d-80b2-8e76-f86720b48d01/Simplifying%20AJV%20Schema%20Verification%20with%20TypeScript)
 - NPM Package: [@raminyavari/ajv-ts-schema](https://www.npmjs.com/package/@raminyavari/ajv-ts-schema)
 - JSON Schema Reference: [AJV Docs](https://github.com/ajv-validator/ajv/blob/master/docs/json-schema.md)
 
