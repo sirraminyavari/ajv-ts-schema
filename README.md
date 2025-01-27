@@ -73,13 +73,17 @@ Validate with `AJV`:
 
 ```tsx
 import Ajv from "ajv/dist/2020";
+import addFormats from "ajv-formats";
 
-const ajv = new Ajv();
+const ajv = new Ajv({ useDefaults: true });
+addFormats(ajv);
 const validate = ajv.compile(schema);
 
 if (!validate(input)) {
   console.error(validate.errors);
 }
+
+const typedSchema = AjvSchema.fromJson(MySchema, input);
 ```
 
 ## Key Advantages

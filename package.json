@@ -1,11 +1,11 @@
 {
   "name": "@raminyavari/ajv-ts-schema",
-  "description": "Simplify AJV Schema Definition with TypeScript",
-  "version": "0.32.1",
+  "description": "Simplify AJV Schema Validation with TypeScript",
+  "version": "0.32.3",
   "license": "Apache-2.0",
   "private": false,
   "repository": "https://github.com/sirraminyavari/ajv-ts-schema",
-  "homepage": "https://www.raminy.dev/article/18712bd0-e06d-80b2-8e76-f86720b48d01/Simplifying%20AJV%20Schema%20Definition%20with%20TypeScript/ajv-ts-schema",
+  "homepage": "https://www.raminy.dev/article/18712bd0-e06d-80b2-8e76-f86720b48d01/Simplifying%20AJV%20Schema%20Validation%20with%20TypeScript/ajv-ts-schema",
   "publishConfig": {
     "access": "public"
   },
