@@ -40,10 +40,17 @@
   },
   "keywords": [
     "ajv",
-    "typescript schema",
-    "ts schema",
-    "json schema",
-    "schema validation"
+    "ts-ajv",
+    "typescript-ajv",
+    "ajv-ts",
+    "typescript-schema-validation",
+    "ts-schema-validation",
+    "json-schema",
+    "json-schema-validation",
+    "json-schema-validator",
+    "schema-validator",
+    "validation",
+    "validator"
   ],
   "release-it": {
     "git": {
