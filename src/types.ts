@@ -299,7 +299,7 @@ export class AjvSchema {
    * If we have `class MySchema extends AjvSchema { foo: number; }` and `json = { foo: 2 }`,
    * `AjvSchema.fromJson(MySchema, json)` will return an instance of `MySchema` with `foo` set to `2`.
    */
-  static fromJson = <T>(cls: new (...args: any[]) => T, json: any): T => {
+  static fromJson = <T extends AjvSchema>(cls: new (...args: any[]) => T, json: any): T => {
     const instance = new cls();
 
     Object.keys(json).forEach((key) => {
@@ -317,3 +317,11 @@ export class AjvSchema {
     return instance;
   };
 }
+
+export type AjvJsonSchema<T extends AjvSchema> = {
+  [K in keyof T]: T[K] extends AjvSchema[]
+    ? AjvJsonSchema<T[K][number]>[]
+    : T[K] extends AjvSchema
+      ? AjvJsonSchema<T[K]>
+      : T[K];
+};

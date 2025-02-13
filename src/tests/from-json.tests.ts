@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { AjvObject, AjvProperty } from "../ajv-schema";
-import { AjvSchema } from "../types";
+import { AjvJsonSchema, AjvSchema } from "../types";
 
 describe("Test 'fromJson' method of 'AjvSchema' class", () => {
   it("fromJson should convert a JSON object to an 'AjvSchema' instance", () => {
@@ -28,7 +28,7 @@ describe("Test 'fromJson' method of 'AjvSchema' class", () => {
       list?: Item[];
     }
 
-    const json = {
+    const json: AjvJsonSchema<MySchema> = {
       foo: 2,
       bar: "abc",
       item: { baz: 1, zad: "zad" },
@@ -42,12 +42,12 @@ describe("Test 'fromJson' method of 'AjvSchema' class", () => {
 
     expect(instance.foo).toBe(json.foo);
     expect(instance.bar).toBe(json.bar);
-    expect(instance.item?.baz).toBe(json.item.baz);
-    expect(instance.item?.zad).toBe(json.item.zad);
-    expect(instance.list?.length).toBe(json.list.length);
-    expect(instance.list?.[0].baz).toBe(json.list[0].baz);
-    expect(instance.list?.[0].zad).toBe(json.list[0].zad);
-    expect(instance.list?.[1].baz).toBe(json.list[1].baz);
-    expect(instance.list?.[1].zad).toBe(json.list[1].zad);
+    expect(instance.item?.baz).toBe(json.item?.baz);
+    expect(instance.item?.zad).toBe(json.item?.zad);
+    expect(instance.list?.length).toBe(json.list?.length);
+    expect(instance.list?.[0].baz).toBe(json.list?.[0].baz);
+    expect(instance.list?.[0].zad).toBe(json.list?.[0].zad);
+    expect(instance.list?.[1].baz).toBe(json.list?.[1].baz);
+    expect(instance.list?.[1].zad).toBe(json.list?.[1].zad);
   });
 });
