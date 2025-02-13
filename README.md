@@ -74,16 +74,35 @@ Validate with `AJV`:
 ```tsx
 import Ajv from "ajv/dist/2020";
 import addFormats from "ajv-formats";
+import { AjvSchema, type AjvJsonSchema } from "@raminyavari/ajv-ts-schema";
 
 const ajv = new Ajv({ useDefaults: true });
 addFormats(ajv);
-const validate = ajv.compile(schema);
+const validate = ajv.compile(schema); // 'schema' comes from 'MySchema.getSchema()'
 
-if (!validate(input)) {
-  console.error(validate.errors);
-}
+const myFunction = (input: any) => {
+  if (!validate(input)) {
+    console.error(validate.errors);
+  }
 
-const typedSchema = AjvSchema.fromJson(MySchema, input);
+  // 'fromJson' returns and instance of 'MySchema'
+  const typedSchema = AjvSchema.fromJson<MySchema>(MySchema, input);
+};
+
+// or you can do this instead
+
+const isMySchema = (input: any): input is AjvJsonSchema<MySchema> => {
+  return validate(input);
+};
+
+const myFunction = (input: any) => {
+  if (!isMySchema(input)) {
+    console.error(validate.errors);
+  }
+
+  // for the rest of the code 'input' is of type 'AjvJsonSchema<MySchema>'
+  // which is a JSON object
+};
 ```
 
 ## Key Advantages
