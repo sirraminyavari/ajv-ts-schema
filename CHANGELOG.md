@@ -1,5 +1,15 @@
 
 
+# [1.0.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.33.0...1.0.0) (2025-02-13)
+
+
+* feat!: Release stable version ([7565bbb](https://github.com/sirraminyavari/ajv-ts-schema/commit/7565bbb52955c31ef6a135792fa2ace8ff286d7b))
+
+
+### BREAKING CHANGES
+
+* Stable version
+
 ## [0.33.2](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.33.1...0.33.2) (2025-02-13)
 
 # [0.33.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.5...0.33.0) (2025-02-13)
