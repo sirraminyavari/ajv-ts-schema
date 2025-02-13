@@ -87,13 +87,13 @@ const myFunction = (input: any) => {
 
   // 'fromJson' returns and instance of 'MySchema'
   const typedSchema = AjvSchema.fromJson<MySchema>(MySchema, input);
-}
+};
 
 // or you can do this instead
 
-const isMySchema(input: any): input is AjvJsonSchema<MySchema> {
+const isMySchema = (input: any): input is AjvJsonSchema<MySchema> => {
   return validate(input);
-}
+};
 
 const myFunction = (input: any) => {
   if (!isMySchema(input)) {
@@ -102,8 +102,7 @@ const myFunction = (input: any) => {
 
   // for the rest of the code 'input' is of type 'AjvJsonSchema<MySchema>'
   // which is a JSON object
-}
-
+};
 ```
 
 ## Key Advantages
