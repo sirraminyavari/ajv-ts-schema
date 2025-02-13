@@ -1,5 +1,12 @@
 
 
+# [0.33.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.5...0.33.0) (2025-02-13)
+
+
+### Features
+
+* Export type AjvJsonSchema ([feb1ccb](https://github.com/sirraminyavari/ajv-ts-schema/commit/feb1ccb26967923d26f561a7433cc86037c87b01))
+
 ## [0.32.5](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.4...0.32.5) (2025-01-30)
 
 ## [0.32.4](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.32.1...0.32.4) (2025-01-27)
