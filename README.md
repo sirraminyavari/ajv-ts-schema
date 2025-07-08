@@ -2,7 +2,7 @@ A TypeScript-first approach to defining JSON Schemas for use with `AJV`.
 
 ## Overview
 
-`AJV` is a powerful JSON Schema validator, but creating schemas directly in JavaScript or TypeScript can be verbose and error-prone. This package, `@raminyavari/ajv-ts-schema`, bridges the gap by allowing you to define schemas using TypeScript decorators, making your schemas type-safe and reusable.
+`AJV` is a powerful JSON Schema validator, but creating schemas directly in JavaScript or TypeScript can be verbose and error-prone. This package, `@raminy/ajv-ts-schema`, bridges the gap by allowing you to define schemas using TypeScript decorators, making your schemas type-safe and reusable.
 
 ## Features
 
@@ -14,13 +14,13 @@ A TypeScript-first approach to defining JSON Schemas for use with `AJV`.
 ## Installation
 
 ```bash
-npm install @raminyavari/ajv-ts-schema
+npm install @raminy/ajv-ts-schema
 ```
 
 Or if you use yarn:
 
 ```bash
-yarn add @raminyavari/ajv-ts-schema
+yarn add @raminy/ajv-ts-schema
 ```
 
 Enable decorators in your `tsconfig.json`:
@@ -55,7 +55,7 @@ yarn test # or 'yarn test:ui'
 Define your schema using decorators:
 
 ```tsx
-import { AjvObject, AjvProperty, AjvSchema } from "@raminyavari/ajv-ts-schema";
+import { AjvObject, AjvProperty, AjvSchema } from "@raminy/ajv-ts-schema";
 
 @AjvObject()
 class MySchema extends AjvSchema {
@@ -74,7 +74,7 @@ Validate with `AJV`:
 ```tsx
 import Ajv from "ajv/dist/2020";
 import addFormats from "ajv-formats";
-import { AjvSchema, type AjvJsonSchema } from "@raminyavari/ajv-ts-schema";
+import { AjvSchema, type AjvJsonSchema } from "@raminy/ajv-ts-schema";
 
 const ajv = new Ajv({ useDefaults: true });
 addFormats(ajv);
@@ -114,7 +114,7 @@ const myFunction = (input: any) => {
 ## Documentation
 
 - Full documentation and examples: [Documentation](https://www.raminy.dev/article/18712bd0-e06d-80b2-8e76-f86720b48d01/Simplifying%20AJV%20Schema%20Validation%20with%20TypeScript)
-- NPM Package: [@raminyavari/ajv-ts-schema](https://www.npmjs.com/package/@raminyavari/ajv-ts-schema)
+- NPM Package: [@raminy/ajv-ts-schema](https://www.npmjs.com/package/@raminy/ajv-ts-schema)
 - JSON Schema Reference: [AJV Docs](https://github.com/ajv-validator/ajv/blob/master/docs/json-schema.md)
 
 ## Contributing

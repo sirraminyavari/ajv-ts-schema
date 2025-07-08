@@ -1,5 +1,5 @@
 {
-  "name": "@raminyavari/ajv-ts-schema",
+  "name": "@raminy/ajv-ts-schema",
   "description": "Simplify AJV Schema Validation with TypeScript",
   "version": "1.0.0",
   "license": "Apache-2.0",
