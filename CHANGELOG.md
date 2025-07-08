@@ -1,5 +1,12 @@
 
 
+# [1.1.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/1.0.0...1.1.0) (2025-07-08)
+
+
+### Features
+
+* Move to @raminy/ajv-ts-schema ([fd6699a](https://github.com/sirraminyavari/ajv-ts-schema/commit/fd6699a2ba92a526547e5ecf0ef4fd1e7b291dec))
+
 # [1.0.0](https://github.com/sirraminyavari/ajv-ts-schema/compare/0.33.0...1.0.0) (2025-02-13)
 
 
