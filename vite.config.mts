@@ -30,5 +30,12 @@ export default {
     },
   },
 
-  plugins: [dts({ rollupTypes: true })],
+  plugins: [
+    dts({
+      bundleTypes: true,
+      tsconfigPath: "./tsconfig.typecheck.json",
+      include: ["src"],
+      exclude: ["src/tests"],
+    }),
+  ],
 };

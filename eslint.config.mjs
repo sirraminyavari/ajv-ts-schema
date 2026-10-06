@@ -5,17 +5,19 @@ import prettier from "eslint-plugin-prettier";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    ignores: ["node_modules", "dist"],
+    ignores: ["node_modules", "dist", "coverage"],
   },
-  { languageOptions: { globals: globals.browser } },
+  {
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { tsconfigRootDir: import.meta.dirname },
+    },
+  },
   ...tseslint.configs.recommended,
   {
     files: ["**/*.ts"],
     rules: {
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { varsIgnorePattern: "^_" },
-      ],
+      "@typescript-eslint/no-unused-vars": ["error", { varsIgnorePattern: "^_" }],
       "no-console": "error",
       "prefer-const": "error",
     },

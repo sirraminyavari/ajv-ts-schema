@@ -57,7 +57,7 @@ describe("Test common options", () => {
     const schema = MySchema.getSchema();
     const validate = ajv.compile(schema);
 
-    const data: any = {};
+    const data: { foo?: string } = {};
     validate(data);
     expect(data.foo).toBe("abc");
   });

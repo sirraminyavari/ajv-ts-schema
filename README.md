@@ -23,24 +23,16 @@ Or if you use yarn:
 yarn add @raminy/ajv-ts-schema
 ```
 
-Enable decorators in your `tsconfig.json`:
+The package uses standard (TC39) decorators, which TypeScript supports from version 5.2. No extra compiler options or `reflect-metadata` are needed. Make sure `experimentalDecorators` is **not** enabled in your `tsconfig.json`, because it switches TypeScript to the legacy decorators.
 
-```json
-{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
-  }
-}
-```
+The decorators rely on `Symbol.metadata`. The package defines it when the runtime does not, so importing the package is enough.
 
-_If you are a contributor and wnat to clone and run on your local_
+_If you are a contributor and want to clone and run on your local_
 
-Make sure `Husky` will run properly by running these commands from the root of the project:
+Make sure `Husky` will run properly by running this command from the root of the project:
 
 ```bash
 chmod +x .husky/pre-commit
-chmod +x .husky/_/husky.sh
 ```
 
 Then run:
@@ -48,6 +40,7 @@ Then run:
 ```bash
 yarn
 yarn test # or 'yarn test:ui'
+yarn typecheck # type-level tests in 'src/tests/types'
 ```
 
 ## Quick Start
@@ -67,6 +60,19 @@ class MySchema extends AjvSchema {
 }
 
 const schema = MySchema.getSchema();
+```
+
+A class that extends another schema class inherits its decorated fields. `AjvObject` options are not inherited, so decorate the subclass with its own `AjvObject` when it needs them.
+
+```tsx
+@AjvObject({ additionalProperties: false })
+class Admin extends MySchema {
+  @AjvProperty({ type: "boolean" })
+  root?: boolean;
+}
+
+// properties: foo, bar and root
+const adminSchema = Admin.getSchema();
 ```
 
 Validate with `AJV`:
